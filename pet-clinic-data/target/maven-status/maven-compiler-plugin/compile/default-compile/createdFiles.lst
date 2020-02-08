@@ -1,0 +1,5 @@
+com\stalmakoff\springpetclinic\model\Pet.class
+com\stalmakoff\springpetclinic\model\Person.class
+com\stalmakoff\springpetclinic\model\Owner.class
+com\stalmakoff\springpetclinic\model\PetType.class
+com\stalmakoff\springpetclinic\model\Vet.class
