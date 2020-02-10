@@ -1,11 +1,11 @@
 package com.stalmakoff.springpetclinic.services.map;
 
 import com.stalmakoff.springpetclinic.model.Pet;
-import com.stalmakoff.springpetclinic.services.CrudService;
+import com.stalmakoff.springpetclinic.services.PetService;
 
 import java.util.Set;
 
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
 
 
     @Override
