@@ -1,5 +1,14 @@
-com\stalmakoff\springpetclinic\model\Pet.class
-com\stalmakoff\springpetclinic\model\Person.class
+com\stalmakoff\springpetclinic\services\PetService.class
 com\stalmakoff\springpetclinic\model\Owner.class
+com\stalmakoff\springpetclinic\services\OwnerService.class
+com\stalmakoff\springpetclinic\model\Pet.class
+com\stalmakoff\springpetclinic\services\map\OwnerServiceMap.class
+com\stalmakoff\springpetclinic\model\Person.class
 com\stalmakoff\springpetclinic\model\PetType.class
+com\stalmakoff\springpetclinic\services\CrudService.class
+com\stalmakoff\springpetclinic\services\map\AbstractMapService.class
+com\stalmakoff\springpetclinic\services\map\VetServiceMap.class
+com\stalmakoff\springpetclinic\services\VetService.class
+com\stalmakoff\springpetclinic\model\BaseEntity.class
 com\stalmakoff\springpetclinic\model\Vet.class
+com\stalmakoff\springpetclinic\services\map\PetServiceMap.class
