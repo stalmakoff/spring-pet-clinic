@@ -1,11 +1,13 @@
 package com.stalmakoff.springpetclinic.model;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Setter
 @Getter
 @NoArgsConstructor
@@ -22,6 +24,9 @@ public class Owner extends Person {
         this.city = city;
         this.telephone = telephone;
         this.pets = pets;
+
+        log.info("Owner has been created");
+        log.debug("in Owner constructor");
     }
 
 
