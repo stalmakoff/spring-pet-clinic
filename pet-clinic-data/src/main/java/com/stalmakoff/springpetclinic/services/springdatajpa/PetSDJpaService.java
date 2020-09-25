@@ -36,6 +36,7 @@ public class PetSDJpaService implements PetService {
 
     @Override
     public Pet save(Pet object) {
+        System.out.println("Pet Saved, SD Jpa" + object);
         return petRepository.save(object);
     }
 
