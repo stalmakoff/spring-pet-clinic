@@ -48,8 +48,10 @@ public class PetController {
         return ownerService.findById(ownerId);
     }
 
+    // but could be without @ModelAttribute("owner") as Spring sees that owner correlates with findOwner attribute above and Owner object "owner" that describes what is this object
+    // so could be just "public String initCreationForm(Owner owner, Model model)"
     @GetMapping("/pets/new")
-    public String initCreationForm(Owner owner, Model model) {
+    public String initCreationForm(@ModelAttribute("owner")Owner owner, Model model) {
         Pet pet = new Pet();
         owner.getPets().add(pet);
         pet.setOwner(owner);
