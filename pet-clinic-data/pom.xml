@@ -9,6 +9,7 @@
 
     <artifactId>pet-clinic-data</artifactId>
 
+    <!--this tells us that springboot plugin for maven is going to create an uber jar in the data class, we do not want that happening, we just want a simple jar to be produced. so this tells springboot not to repackage it, the sympthom without it -  will complain that it cannot find a main class. Basically it trying to package it as a spring boot project looking for the main class for spring boot but this is just going to be a simple jar, not a spring boot jar, that is why we are setting this property-->
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
