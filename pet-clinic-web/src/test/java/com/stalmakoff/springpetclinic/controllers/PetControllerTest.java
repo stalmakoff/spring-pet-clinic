@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,7 @@ class PetControllerTest {
 
     MockMvc mockMvc;
 
+    Pet pet;
     Owner owner;
     Set<PetType> petTypes;
 
@@ -51,8 +53,12 @@ class PetControllerTest {
         owner = Owner.builder().id(1l).build();
 
         petTypes = new HashSet<>();
-        petTypes.add(PetType.builder().id(1L).name("Dog").build());
-        petTypes.add(PetType.builder().id(2L).name("Cat").build());
+        PetType dog = PetType.builder().id(1L).name("Dog").build();
+        PetType cat = PetType.builder().id(2L).name("Cat").build();
+        petTypes.add(dog);
+        petTypes.add(cat);
+
+        pet = Pet.builder().id(2L).owner(owner).petType(cat).name("Fred").birthDate(LocalDate.of(2000, 12, 10)).build();
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(petController)
@@ -87,7 +93,7 @@ class PetControllerTest {
     void initUpdateForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
-        when(petService.findById(anyLong())).thenReturn(Pet.builder().id(2L).build());
+        when(petService.findById(anyLong())).thenReturn(pet);
 
         mockMvc.perform(get("/owners/1/pets/2/edit"))
                 .andExpect(status().isOk())
@@ -100,6 +106,9 @@ class PetControllerTest {
     void processUpdateForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
+        when(petService.findById(anyLong())).thenReturn(pet);
+        when(petService.save(pet)).thenReturn(pet);
+
 
         mockMvc.perform(post("/owners/1/pets/2/edit"))
                 .andExpect(status().is3xxRedirection())

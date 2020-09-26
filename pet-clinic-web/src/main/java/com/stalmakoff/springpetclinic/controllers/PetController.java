@@ -85,15 +85,15 @@ public class PetController {
     @PostMapping("/pets/{petId}/edit")
     public String processUpdateForm(@Valid @ModelAttribute Pet pet,@PathVariable("petId") Long id, BindingResult result,@ModelAttribute("owner") Owner owner, Model model) {
         // validate the input data
-        if (StringUtils.hasLength(pet.getName())) {
-            Pet foundPet = owner.getPet(pet.getName());
-            if (foundPet!=null && !foundPet.getId().equals(Long.valueOf(id))) {
-                result.rejectValue("name", "duplicate", "already used for other pet for this owner");
-            }
-        }
-        if (!StringUtils.hasLength(pet.getName())) {
-            result.rejectValue("name", "null", "name of pet cannot be empty");
-        }
+//        if (StringUtils.hasLength(pet.getName())) {
+//            Pet foundPet = owner.getPet(pet.getName());
+//            if (foundPet!=null && !foundPet.getId().equals(Long.valueOf(id))) {
+//                result.rejectValue("name", "duplicate", "already used for other pet for this owner");
+//            }
+//        }
+//        if (!StringUtils.hasLength(pet.getName())) {
+//            result.rejectValue("name", "null", "name of pet cannot be empty");
+//        }
         if (result.hasErrors()) {
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
