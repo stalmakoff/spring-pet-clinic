@@ -29,6 +29,7 @@ public class VisitController {
     public void dataBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
 
+        //parsing text/string to a local date
         dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException{
