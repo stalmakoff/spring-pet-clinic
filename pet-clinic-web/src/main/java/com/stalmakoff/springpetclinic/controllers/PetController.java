@@ -1,11 +1,14 @@
 package com.stalmakoff.springpetclinic.controllers;
 
+import com.stalmakoff.springpetclinic.exceptions.NotFoundException;
 import com.stalmakoff.springpetclinic.model.Owner;
 import com.stalmakoff.springpetclinic.model.Pet;
 import com.stalmakoff.springpetclinic.model.PetType;
 import com.stalmakoff.springpetclinic.services.OwnerService;
 import com.stalmakoff.springpetclinic.services.PetService;
 import com.stalmakoff.springpetclinic.services.PetTypeService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -13,10 +16,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Collection;
 
+@Slf4j
 @Controller
 @RequestMapping("/owners/{ownerId}")
 public class PetController {
@@ -66,11 +71,15 @@ public class PetController {
         }
         owner.getPets().add(pet);
         if (result.hasErrors()) {
+            result.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         } else {
             pet.setOwner(owner); // only  after that we could see on owners/{ownerId} all list of pets
             petService.save(pet);
+            log.debug("saved pet id:" + pet.getId());
 
             return "redirect:/owners/" + owner.getId();
         }
@@ -114,6 +123,21 @@ public class PetController {
             petService.save(foundPet);
             return "redirect:/owners/" + owner.getId();
         }
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception){
+
+        log.error("Handling not found exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
     }
 
 

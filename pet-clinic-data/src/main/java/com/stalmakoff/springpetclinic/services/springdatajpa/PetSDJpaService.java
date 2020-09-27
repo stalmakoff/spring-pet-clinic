@@ -1,5 +1,6 @@
 package com.stalmakoff.springpetclinic.services.springdatajpa;
 
+import com.stalmakoff.springpetclinic.exceptions.NotFoundException;
 import com.stalmakoff.springpetclinic.model.Pet;
 import com.stalmakoff.springpetclinic.repositories.PetRepository;
 import com.stalmakoff.springpetclinic.services.PetService;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -31,7 +33,13 @@ public class PetSDJpaService implements PetService {
 
     @Override
     public Pet findById(Long aLong) {
-        return petRepository.findById(aLong).orElse(null);
+        Optional<Pet> petOptional = petRepository.findById(aLong);
+
+        if (!petOptional.isPresent()) {
+            throw new NotFoundException("Pet Not Found. For ID value: " + aLong.toString() );
+        }
+
+        return petOptional.get();
     }
 
     @Override
