@@ -29,7 +29,7 @@ public class Pet extends BaseEntity{
         }
     }
 
-    @Size(min = 2, max = 255)
+    @Size(min = 3, max = 255)
     @Column(name = "name")
     private String name;
 
